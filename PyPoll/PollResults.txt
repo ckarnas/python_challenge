@@ -1,0 +1,15 @@
+Election Results
+----------------------
+Total Votes: 980412
+----------------------
+Correy: 19.9% (195583)
+Khan: 63.1% (618299)
+Li: 14.0% (137255)
+O'Tooley: 3.0% (29275)
+----------------------
+Winner: Khan
+----------------------
+Marsh gave Khan the most votes: 398186. But were they the happiest county?
+Yes!
+The happiest county is Marsh county, because they had highest percent of their citizens voting for Candidate Khan
+A whooping 63.0% of Marsh citizens gave their votes to Candidate Khan
