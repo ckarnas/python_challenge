@@ -4,9 +4,15 @@
 
 import os
 import pandas as pd
-csvpath = os.path.join('election_data_2.csv')
 import sys
-import sys
+csvpath = os.path.join("raw_data","election_data_1.csv")
+csvpath2 = os.path.join("raw_data", "election_data_2.csv")
+
+polling_data1 = pd.read_csv(csvpath)
+polling_data2 = pd.read_csv(csvpath2)
+frames = [polling_data1, polling_data2]
+polling_data = pd.concat(frames)
+
 
 #set up to write to file AND terminal
 class Logger(object):
@@ -26,8 +32,7 @@ class Logger(object):
 
 sys.stdout = Logger()
 
-polling_data = pd.read_csv(csvpath)
-#polling_data.head()
+
 
 #Calculating the total votes
 total_votes = polling_data["Voter ID"].nunique()
@@ -99,5 +104,5 @@ if big_vote_county == big_percent:
 else:
     print("Interestingly, no.")
 print("The happiest county is " + big_percent + " county, because they had highest percent of their citizens voting for Candidate " + winner)
-print("A whooping " + str(each_county_total[big_percent]["Percent"]) + "% of " + big_percent + " citizens gave their votes to Candidate " + winner)
+print("A whopping " + str(each_county_total[big_percent]["Percent"]) + "% of " + big_percent + " citizens gave their votes to Candidate " + winner)
 

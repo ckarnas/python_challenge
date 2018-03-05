@@ -10,11 +10,35 @@
 #
 
 import os
+import sys
 import pandas as pd
-csvpath = os.path.join('election_data_2.csv')
+csvpath = os.path.join("raw_data","election_data_1.csv")
+csvpath2 = os.path.join("raw_data", "election_data_2.csv")
 
-polling_data = pd.read_csv(csvpath)
+polling_data1 = pd.read_csv(csvpath)
+polling_data2 = pd.read_csv(csvpath2)
 #polling_data.head()
+#set up to write to file AND terminal
+class Logger(object):
+    def __init__(self):
+        self.terminal = sys.stdout
+        self.log = open("PollResults1.txt", "w")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)  
+
+    def flush(self):
+        #this flush method is needed for python 3 compatibility.
+        #this handles the flush command by doing nothing.
+        #you might want to specify some extra behavior here.
+        pass    
+
+sys.stdout = Logger()
+
+frames = [polling_data1, polling_data2]
+
+polling_data = pd.concat(frames)
 
 #Calculating the total votes
 total_votes = polling_data["Voter ID"].nunique()

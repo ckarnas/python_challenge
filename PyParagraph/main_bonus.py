@@ -22,16 +22,16 @@ for paragraph in comparing_for_fun:
     stats[count] = {}
     stats[count]["Word Count"] = word_count
     #word_count
-    #total_sentences = 0
+    total_sentences = 0
     #I found 2 ways to find the sentence. I'll keep the second one because it has less code
     #for x in words:
-    #    if (". " in x) | ("?" in x):
+    #    if ("." in x) | ("?" in x):
     #        total_sentences = total_sentences + 1
     
-
-    total_sentences = paragraph.count(". ") + paragraph.count("?")
+    #I added the EOL marker because the coding website has many periods that do not indicate a sentence, like Node.js
+    total_sentences = paragraph.count(". ") + paragraph.count("?") + paragraph.count(".\n")
     stats[count]["Sentence Count"] = total_sentences
-
+    print(total_sentences)
     avg_length_sent = round(word_count / total_sentences, 1)
     
     stats[count]["Avg Sentence Length"] = avg_length_sent
