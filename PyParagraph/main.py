@@ -13,7 +13,7 @@
 
 import os
 
-data_file = os.path.join('data_bootcamp_ad.txt')
+data_file = os.path.join('raw_data','paragraph_2.txt')
 text_to_analyze = open(data_file,"r") 
 paragraph= (text_to_analyze.read()) 
 

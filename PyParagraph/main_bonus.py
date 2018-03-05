@@ -5,10 +5,10 @@
 import os
 
 
-data_file = os.path.join('data_bootcamp_ad.txt')
+data_file = os.path.join('raw_data', 'paragraph_1.txt')
 text_to_analyze = open(data_file,"r") 
 para= (text_to_analyze.read()) 
-data_file2 = os.path.join('coding_bootcamp_ad.txt')
+data_file2 = os.path.join('raw_data', 'paragraph_2.txt')
 text_to_analyze2 = open(data_file2,"r") 
 para2= (text_to_analyze2.read()) 
 
@@ -28,8 +28,10 @@ for paragraph in comparing_for_fun:
     #    if ("." in x) | ("?" in x):
     #        total_sentences = total_sentences + 1
     
-    #I added the EOL marker because the coding website has many periods that do not indicate a sentence, like Node.js
-    total_sentences = paragraph.count(". ") + paragraph.count("?") + paragraph.count(".\n")
+    #I added the EOL marker because I tested a coding website has many periods that did not indicate a sentence, like Node.js 
+    #total_sentences = paragraph.count(". ") + paragraph.count("?") + paragraph.count(".\n")
+
+    total_sentences = paragraph.count(".") + paragraph.count("?")
     stats[count]["Sentence Count"] = total_sentences
     print(total_sentences)
     avg_length_sent = round(word_count / total_sentences, 1)
