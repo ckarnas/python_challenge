@@ -2,23 +2,48 @@
 #Colleen Karnas-Haines
 #3/2/2018
 
+#
+#
+# This is plain version.
+# Check it out!
+#
+#
+
 import os
 import pandas as pd
 import sys
-csvpath = os.path.join("raw_data","election_data_1.csv")
-csvpath2 = os.path.join("raw_data", "election_data_2.csv")
 
-polling_data1 = pd.read_csv(csvpath)
-polling_data2 = pd.read_csv(csvpath2)
-frames = [polling_data1, polling_data2]
-polling_data = pd.concat(frames)
+#csvpath = os.path.join("raw_data","election_data_1.csv")
+#csvpath2 = os.path.join("raw_data", "election_data_2.csv")
+
+#polling_data1 = pd.read_csv(csvpath)
+#polling_data2 = pd.read_csv(csvpath2)
+#frames = [polling_data1, polling_data2]
+#polling_data = pd.concat(frames)
+
+#I made this a dynamic data entry
+more_data = True
+all_data = []
+while more_data:
+    print("Your data should be available from the raw_data folder. If you have not placed it in there,")
+    print("please do so before continuing.")
+    file_name = input("What is your file name?")
+    next_path = os.path.join("raw_data", file_name)
+    #print(next_path)
+    all_data.append(pd.read_csv(next_path))
+    #print(all_data)
+    continue_ques = input("Do you have any more data sets to add to this run? y/n: ")
+    if (continue_ques.upper() == "N") | (continue_ques.upper() =="NO"):
+        more_data = False
+    
+polling_data = pd.concat(all_data)
 
 
 #set up to write to file AND terminal
 class Logger(object):
     def __init__(self):
         self.terminal = sys.stdout
-        self.log = open("PollResults.txt", "w")
+        self.log = open("PollResults1.txt", "w")
 
     def write(self, message):
         self.terminal.write(message)
@@ -31,7 +56,6 @@ class Logger(object):
         pass    
 
 sys.stdout = Logger()
-
 
 
 #Calculating the total votes
@@ -73,8 +97,8 @@ for candidate in (each_candidate_total, each_candidate_percentage):
 #combo
 
 #Output
-fancy_line = "----------------------"  
-print("Election Results") 
+fancy_line = "----------------------"
+print("Election Results")
 print(fancy_line)
 print("Total Votes: " + str(total_votes))
 print(fancy_line)
@@ -83,26 +107,4 @@ for x in (list_of_candidates):
 print(fancy_line)
 print("Winner: " + winner)
 print(fancy_line)
-
-#bonus fun
-#A list of counties
-list_of_counties = polling_data["County"].unique()
-
-each_county_total = {}
-for county in list_of_counties:
-    each_county_total[county]={}
-    each_county_total[county]["Total"]=polling_data.loc[polling_data["County"]==county, "County"].count()
-    each_county_total[county]["Win Total"]=(polling_data.loc[(polling_data["County"] == county) & (polling_data["Candidate"] == winner),"County"]).count()
-    each_county_total[county]["Percent"] = round((each_county_total[county]["Win Total"]/each_county_total[county]["Total"]), 2)*100
-                    
-#Summary Stats
-big_vote_county = max(each_county_total, key = lambda v: each_county_total[v]["Win Total"])
-print(big_vote_county + " gave " + winner + " the most votes: " + str(each_county_total[big_vote_county]["Win Total"]) + ". But were they the happiest county?")
-big_percent = max(each_county_total, key = lambda v: each_county_total[v]["Percent"])
-if big_vote_county == big_percent:
-    print("Yes!")
-else:
-    print("Interestingly, no.")
-print("The happiest county is " + big_percent + " county, because they had highest percent of their citizens voting for Candidate " + winner)
-print("A whopping " + str(each_county_total[big_percent]["Percent"]) + "% of " + big_percent + " citizens gave their votes to Candidate " + winner)
 
